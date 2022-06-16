@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Deduplication",
+    "license": {
+      "name": "DOTZ"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/isAlive": {
+      "get": {
+        "tags": [
+          "Disponibilidade"
+        ],
+        "summary": "testa a disponilidade do serviço",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": null
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/request": {
+      "post": {
+        "tags": [
+          "Deduplication"
+        ],
+        "summary": "Deduplica os produtos pelo ID e displayName",
+        "requestBody": {
+          "description": "Book Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bookRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": null
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Campos": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "string"
+          },
+          "displayName": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "bookRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Campos"
+            }
+          }
+        }
+      }
+    }
+  }
+}
